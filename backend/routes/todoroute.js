@@ -8,9 +8,14 @@ const VerifyToken = require('../middleware/verifytoken');
 
 
 router.post('/new-todo', VerifyToken, async (req, res) => {
+   
     const { description } = req.body;
+    console.log(description)
     const { projectId } = req.query;
+    console.log(projectId)
+   
 
+    
     try {
         const project = await Project.findById(projectId);
         if (!project) {
@@ -34,15 +39,17 @@ router.post('/new-todo', VerifyToken, async (req, res) => {
     }
 });
 router.get('/get-all-todos', VerifyToken, async (req, res) => {
+   
     const { projectId } = req.query; 
+   
 
     try {
         const project = await Project.findById(projectId).populate('todos');
         if (!project) {
             return res.status(404).json({ message: 'Project not found' });
         }
-
         res.status(200).json({ todos: project.todos });
+        
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
     }
@@ -52,6 +59,8 @@ router.get('/get-all-todos', VerifyToken, async (req, res) => {
 router.put('/update-todo', VerifyToken, async (req, res) => {
     const { todoId } = req.query; 
     const { description, status } = req.body; 
+    console.log(description)
+    console.log(status)
 
     try {
        

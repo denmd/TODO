@@ -42,6 +42,22 @@ router.get('/get-projects',VerifyToken , async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+router.get('/get-project-title',VerifyToken, async (req, res) => {
+    const {projectId} = req.query;
+  
+    try {
+      const project = await Project.findById(projectId);
+  
+      if (project) {
+        res.status(200).json({ title: project.title });
+      } else {
+        res.status(404).json({ error: 'Project not found' });
+      }
+    } catch (error) {
+      console.error('Error fetching project title:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 router.put('/update-project', VerifyToken, async (req, res) => {
     const { projectId } = req.query;
@@ -60,6 +76,22 @@ router.put('/update-project', VerifyToken, async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 });
-
+// app.put('/update-pro-title', async (req, res) => {
+//     const { projectId } = req.query;
+//     const { title } = req.body;
+  
+//     try {
+//       const updatedProject = await Project.findByIdAndUpdate(projectId, { title }, { new: true });
+  
+//       if (updatedProject) {
+//         res.status(200).json({ message: 'Project title updated successfully' });
+//       } else {
+//         res.status(404).json({ error: 'Project not found' });
+//       }
+//     } catch (error) {
+//       console.error('Error updating project title:', error);
+//       res.status(500).json({ error: 'Internal server error' });
+//     }
+//   });
 
 module.exports = router;

@@ -9,9 +9,12 @@ const todoRoutes=require("./routes/todoroute")
 const gistRoutes=require('./routes/gistroute')
 const mongodbURI = process.env.MONGODB_URI
 const port = process.env.PORT
+const cors = require('cors');
 
+
+app.use(cors());
 app.use(express.json());
-
+app.use(cors());
 app.use('/auth', authRoutes);
 app.use('/project',projectRoutes);
 app.use('/todo',todoRoutes)

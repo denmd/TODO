@@ -53,14 +53,8 @@ ${generateTaskList(completedTodos, 'complete')}
         const data = await response.json();
 
         const exportDir = path.join(__dirname, '..', 'exports');
-        if (!fs.existsSync(exportDir)) {
-            fs.mkdirSync(exportDir);
-        }
-
-        const filePath = path.join(exportDir, `${project.title}.md`);
-        fs.writeFileSync(`${project.title}.md`, gistContent);
-
-        res.status(201).json({ message: 'Gist created successfully', url: data.html_url });
+      
+        res.status(201).json({ message: 'Gist created successfully', url: data.html_url, fileContent: gistContent, fileName: `${project.title}.md` });
     } catch (error) {
         res.status(500).json(console.log(error));
     }
