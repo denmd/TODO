@@ -59,9 +59,7 @@ router.get('/get-all-todos', VerifyToken, async (req, res) => {
 router.put('/update-todo', VerifyToken, async (req, res) => {
     const { todoId } = req.query; 
     const { description, status } = req.body; 
-    console.log(description)
-    console.log(status)
-
+  
     try {
        
         const todo = await Todo.findById(todoId);
@@ -72,7 +70,7 @@ router.put('/update-todo', VerifyToken, async (req, res) => {
         
         if (description) todo.description = description;
         if (status) todo.status = status;
-
+        todo.updatedAt = Date.now();
       
         await todo.save();
 

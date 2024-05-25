@@ -76,22 +76,6 @@ router.put('/update-project', VerifyToken, async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 });
-// app.put('/update-pro-title', async (req, res) => {
-//     const { projectId } = req.query;
-//     const { title } = req.body;
-  
-//     try {
-//       const updatedProject = await Project.findByIdAndUpdate(projectId, { title }, { new: true });
-  
-//       if (updatedProject) {
-//         res.status(200).json({ message: 'Project title updated successfully' });
-//       } else {
-//         res.status(404).json({ error: 'Project not found' });
-//       }
-//     } catch (error) {
-//       console.error('Error updating project title:', error);
-//       res.status(500).json({ error: 'Internal server error' });
-//     }
-//   });
+
 
 module.exports = router;
